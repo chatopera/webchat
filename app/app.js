@@ -23,9 +23,9 @@ const httpServer = app.listen(port, function () {
     console.log(`            
 ${data}
 ================= Powered by Chatopera =====================
--------- https://github.com/chatopera/efaqa-bot-demo
+-------- https://github.com/chatopera/chatopera-chat-web
 
----------------- 心理问答机器人示例程序，心理问答 API. ---------------------
+---------------- Deliver Chatbots for Enterprise. ---------------------
 
 `);
     console.log(`Chatopera Test Client Listening on port ${port}`);
@@ -48,12 +48,16 @@ io.on("connection", function (socket) {
     let { host, clientId, clientSecret, username } = data.provider || {};
 
     let bot = new Chatbot(clientId, clientSecret, host);
-    let response = await bot.psychChat(
-      "testclient",
-      "efaqa-bot-demo",
-      username,
-      data.content
-    );
+
+    // FIXME
+    let response = {};
+
+    // let response = await bot.psychChat(
+    //   "testclient",
+    //   "efaqa-bot-demo",
+    //   username,
+    //   data.content
+    // );
 
     // debug("get response: \n%s", JSON.stringify(response, null, " "));
 

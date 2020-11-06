@@ -6,7 +6,7 @@
 # constants
 baseDir=$(cd `dirname "$0"`;pwd)
 appHome=$baseDir/..
-imagename=chatopera/efaqa-bot-tc
+imagename=chatopera/webchat
 # functions
 
 # main 
