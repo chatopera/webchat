@@ -66,9 +66,9 @@ ChatProxy.prototype.connect = function (payload) {
 
     /** Subscribe server:client message */
     self.socket.on("server:client", function (data) {
-      console.log("server:client message", data.response.createdate);
-      if (!self.replies[data.response.createdate]) {
-        self.replies[data.response.createdate] = data;
+      console.log("server:client message", data.response);
+      if (!self.replies[data.response.data.createdAt]) {
+        self.replies[data.response.data.createdAt] = data;
         self.emit(Topics.USER_MESSAGE, {
           content:
             data.response.textMessage ||

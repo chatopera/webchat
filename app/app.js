@@ -1,6 +1,6 @@
 "use strict";
 
-const debug = require("debug")("testclient:app");
+const debug = require("debug")("webchat:app");
 const Koa = require("koa");
 const config = require("./config/environment");
 const serve = require("koa-static");
@@ -23,7 +23,7 @@ const httpServer = app.listen(port, function () {
     console.log(`            
 ${data}
 ================= Powered by Chatopera =====================
--------- https://github.com/chatopera/chatopera-chat-web
+-------- https://github.com/chatopera/webchat
 
 ---------------- Deliver Chatbots for Enterprise. ---------------------
 
@@ -44,26 +44,33 @@ io.on("connection", function (socket) {
   socket.emit(Topics.USER_CONNECTED, query.username);
 
   socket.on("client:server", async function (data) {
-    debug("socket.io", "client:server", data);
+    debug("[socket.io]", "client:server", data);
     let { host, clientId, clientSecret, username } = data.provider || {};
 
     let bot = new Chatbot(clientId, clientSecret, host);
 
-    // FIXME
-    let response = {};
+    let response = await bot.command("POST", "/conversation/query", {
+      fromUserId: username,
+      textMessage: data.content,
+      faqBestReplyThreshold: 0.7,
+      faqSuggReplyThreshold: 0.35,
+    });
 
-    // let response = await bot.psychChat(
-    //   "testclient",
-    //   "efaqa-bot-demo",
-    //   username,
-    //   data.content
-    // );
+    debug(
+      "[socket.io], response POST /conversation/query",
+      JSON.stringify(response, null, " ")
+    );
 
-    // debug("get response: \n%s", JSON.stringify(response, null, " "));
+    let textMessage = response.rc == 0 ? response.data.string : null;
+    response["textMessage"] = textMessage;
+
+    debug(
+      "[socket.io] final response: \n%s",
+      JSON.stringify(response, null, " ")
+    );
 
     socket.emit("server:client", {
       recipient: data.author,
-      // faked response
       response: response,
     });
   });

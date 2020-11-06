@@ -1,47 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="css/main.css" />
     <title></title>
-  </head>
+</head>
 
-  <body>
+<body>
     <section id="container">
-      <div class="reg-form-container">
-        <h1>
-          Chatopera Test Client
-        </h1>
-        <label for="superbrain-host">Service Provider</label>
-        <input
-          type="text"
-          id="superbrain-host"
-          placeholder="https://bot.chatopera.com"
-          class="form-control"
-          ,
-          value="https://bot.chatopera.com"
-        />
-        <br />
+        <div class="reg-form-container">
+            <h1>
+                Chatopera Test Client
+            </h1>
+            <label for="superbrain-host">Service Provider</label>
+            <input type="text" id="superbrain-host" placeholder="https://bot.chatopera.com" class="form-control" ,
+                value="https://bot.chatopera.com" />
+            <br />
 
-        <label for="superbrain-clientid">Client ID</label>
-        <input type="text" id="superbrain-clientid" class="form-control" />
+            <label for="superbrain-clientid">Client ID</label>
+            <input type="text" id="superbrain-clientid" class="form-control" />
 
-        <label for="superbrain-clientid">Client Secret</label>
-        <input type="text" id="superbrain-clientsecret" class="form-control" />
+            <label for="superbrain-clientid">Client Secret</label>
+            <input type="password" id="superbrain-clientsecret" class="form-control" />
 
-        <label for="username-input">Username</label>
-        <input
-          type="text"
-          id="username-input"
-          placeholder="tc"
-          class="form-control"
-          ,
-          value="tc"
-        />
-        <br />
-        <button id="connect-btn" class="btn btn-primary">Chat</button>
-      </div>
+            <label for="username-input">Username</label>
+            <input type="text" id="username-input" placeholder="tc" class="form-control" , value="tc" />
+            <br />
+            <button id="connect-btn" class="btn btn-primary">Chat</button>
+        </div>
     </section>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.2/ace.js"></script> -->
     <script src="lib/ace/ace.js"></script>
@@ -59,5 +47,6 @@
     <script type="text/jsx" src="src/components/chat/MessageInput.jsx"></script>
     <script type="text/jsx" src="src/components/chat/MessagesList.jsx"></script>
     <script type="text/jsx" src="src/app.jsx"></script>
-  </body>
+</body>
+
 </html>
