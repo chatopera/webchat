@@ -2,6 +2,13 @@
 
 使用 Web 网页和 Chatopera 机器人对话。
 
+## Featured
+
+- 提供对话页面，方便系统集成测试
+- 使用 Bot Provider 地址，clientId 和 secret 连接机器人
+- 实现 Dialogue Management: 融合意图识别检索、多轮对话检索和知识库检索
+- 使用 Chatopera Node.js SDK，可作为系统集成参考
+
 ## TL;DR
 
 ```
