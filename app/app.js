@@ -52,34 +52,59 @@ io.on("connection", function (socket) {
 
     let bot = new Chatbot(clientId, clientSecret, host);
 
+    // -------- 验证机器人 -------
+    let detail = await bot.command("GET", "/");
+    debug("[socket.io] chatbot profile details", detail);
+    if (detail.rc != 0) {
+      // 机器人不存在
+      detail["textMessage"] =
+        "Not exist, can not establish connection to bot provider or invalid credentials.";
+      if (detail.data) {
+        detail.data["createdAt"] = new Date().getTime();
+      } else {
+        detail["data"] = {
+          createdAt: new Date().getTime(),
+        };
+      }
+
+      socket.emit("server:client", {
+        recipient: data.author,
+        response: detail,
+      });
+      return;
+    }
+
     // -------- 准备对话 --------
 
     /**
      * 意图识别会话
      */
     // 存储位置初始化
-    if (!sessions[username]) sessions[username] = { session: null };
+    if (!sessions[clientId]) sessions[clientId] = {};
+
+    if (!sessions[clientId][username])
+      sessions[clientId][username] = { session: null };
 
     // 检查会话是否存在
-    if (!sessions[username]["session"]) {
+    if (!sessions[clientId][username]["session"]) {
       // 不存在：创建 session
       let resp = await bot.command("POST", "/clause/prover/session", {
         uid: username,
         channel: CHANNEL_ID,
       });
-      sessions[username]["session"] = resp.data;
+      sessions[clientId][username]["session"] = resp.data;
       debug("[socket.io] created a new session.");
     } else {
       // 存在
       debug(
         "[socket.io] retrieved memory session data",
-        sessions[username]["session"]
+        sessions[clientId][username]["session"]
       );
 
       // 检查会话是否有效
       let resp = await bot.command(
         "GET",
-        `/clause/prover/session/${sessions[username]["session"].id}`
+        `/clause/prover/session/${sessions[clientId][username]["session"].id}`
       );
 
       debug("[socket.io] retrieved pre session info", resp);
@@ -91,18 +116,18 @@ io.on("connection", function (socket) {
           channel: CHANNEL_ID,
         });
         debug("[socket.io] expired session, re-create session");
-        sessions[username]["session"] = resp.data;
+        sessions[clientId][username]["session"] = resp.data;
       } else {
         // 更新 session 信息
-        sessions[username]["session"] = resp.data;
+        sessions[clientId][username]["session"] = resp.data;
       }
     }
 
-    const sessionId = sessions[username]["session"]["id"];
+    const sessionId = sessions[clientId][username]["session"]["id"];
 
     debug(
       "[socket.io] resolve final session for intent chat",
-      sessions[username]["session"]
+      JSON.stringify(sessions[clientId][username]["session"], null, " ")
     );
 
     // -------- 发送对话请求 --------
@@ -120,14 +145,17 @@ io.on("connection", function (socket) {
         "/clause/prover/chat",
         {
           fromUserId: username,
-          session: sessions[username]["session"],
+          session: sessions[clientId][username]["session"],
           message: {
             textMessage: data.content,
           },
         }
       );
 
-      debug("[socket.io] intent response ", intentChatResponse);
+      debug(
+        "[socket.io] intent response ",
+        JSON.stringify(intentChatResponse, null, " ")
+      );
 
       if (
         intentChatResponse.rc == 0 &&
@@ -136,7 +164,7 @@ io.on("connection", function (socket) {
         intentChatResponse.data.session.intent_name
       ) {
         // 识别到意图
-        let preSession = sessions[username]["session"];
+        let preSession = sessions[clientId][username]["session"];
         let curSession = intentChatResponse.data.session;
         let textMessage = null;
 
@@ -145,14 +173,14 @@ io.on("connection", function (socket) {
           // 已经 resolved
           // Note: 实现不同业务逻辑!
           // 清楚 session 信息
-          sessions[username] = null;
+          sessions[clientId][username] = null;
           textMessage = "已经发现意图并收集了参数，参考右侧完整返回信息。";
         } else {
           // 没有 resolved
           // 更新 session 信息
-          sessions[username] = intentChatResponse.data;
+          sessions[clientId][username] = intentChatResponse.data;
           // FIXME 返回值没有保留 sessionId，待优化 https://gitlab.chatopera.com/chatopera/chatopera.bot/issues/871
-          sessions[username]["session"].id = sessionId; // work around
+          sessions[clientId][username]["session"].id = sessionId; // work around
           textMessage = intentChatResponse.data.message.textMessage;
         }
 
