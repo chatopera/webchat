@@ -11,9 +11,15 @@
 - 提供对话页面，方便系统集成测试
 - 使用 Bot Provider 地址，clientId 和 secret 连接机器人
 - 实现 Dialogue Management: 融合意图识别检索、多轮对话检索和知识库检索
-- 使用 [Chatopera Node.js SDK](https://www.npmjs.com/package/@chatopera/sdk)，可作为系统集成参考
+- [app.js](https://github.com/chatopera/webchat/blob/master/app/app.js) 使用 [Chatopera Node.js SDK](https://www.npmjs.com/package/@chatopera/sdk)，可作为系统集成参考
 
 ## TL;DR
+
+### 直接使用
+
+[https://tc.chatopera.com/](https://tc.chatopera.com/)
+
+### 或使用 Docker 启动实例
 
 ```
 docker run -it --rm -p 8668:8668 chatopera/webchat:develop
