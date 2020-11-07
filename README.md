@@ -1,5 +1,7 @@
 # Chatopera Web Chat
 
+[Gitee](https://gitee.com/chatopera/webchat) | [CodeChina](https://codechina.csdn.net/chatopera/webchat) | [GitHub](https://github.com/chatopera/webchat)
+
 使用 Web 浏览器和 [Chatopera 机器人平台](https://bot.chatopera.com/)的聊天机器人对话。
 
 [Chatopera 机器人平台](https://bot.chatopera.com/)定制聊天机器人，让聊天机器人上线！

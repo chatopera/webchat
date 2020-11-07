@@ -21,7 +21,7 @@ $(function() {
     );
   }
 
-  window.onbeforeunload = function() {
-    return "确定离开本页?";
-  };
+//   window.onbeforeunload = function() {
+//     return "确定离开本页?";
+//   };
 });
