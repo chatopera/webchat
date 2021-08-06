@@ -15,11 +15,7 @@
 
 ## TL;DR
 
-### 直接使用
-
-[https://tc.chatopera.com/](https://tc.chatopera.com/)
-
-### 或使用 Docker 启动实例
+使用 Docker 启动实例
 
 ```
 docker run -it --rm -p 8668:8668 chatopera/webchat:develop
@@ -137,7 +133,7 @@ Chatopera 机器人平台包括知识库、多轮对话、意图识别和语音�
 
 ## 开源许可协议
 
-Copyright (2018-2020) <a href="https://www.chatopera.com/" target="_blank">北京华夏春松科技有限公司</a>
+Copyright (2018-2021) <a href="https://www.chatopera.com/" target="_blank">北京华夏春松科技有限公司</a>
 
 [MIT](https://github.com/chatopera/chatopera-chat-web/blob/master/LICENSE)
 
