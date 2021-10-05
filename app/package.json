@@ -1,7 +1,7 @@
 {
-  "name": "efaqa-bot-demo",
+  "name": "webchat",
   "version": "1.0.0",
-  "description": "心理问答机器人示例程序",
+  "description": "Chatopera 机器人测试对话网页客户端",
   "scripts": {
     "test": "node_modules/ava/cli.js",
     "flow": "DEBUG=demo* node demo.js",
@@ -10,26 +10,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chatopera/efaqa-bot-demo.git"
+    "url": "git+https://github.com/chatopera/webchat.git"
   },
   "keywords": [
     "chatopera",
     "chatbot",
     "nodejs",
-    "javascript",
-    "psychologic",
-    "心理咨询"
+    "javascript"
   ],
   "author": "Chatopera Inc. <info@chatopera.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chatopera/efaqa-bot-demo/issues"
+    "url": "https://github.com/chatopera/webchat/issues"
   },
-  "homepage": "https://github.com/chatopera/efaqa-bot-demo#readme",
+  "homepage": "https://github.com/chatopera/webchat#readme",
   "dependencies": {
-    "@chatopera/sdk": "^2.6.1",
+    "@chatopera/sdk": "^2.7.8",
     "debug": "^4.1.1",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "figlet": "^1.2.0",
     "koa": "^2.1.0",
     "koa-bodyparser": "^4.2.0",

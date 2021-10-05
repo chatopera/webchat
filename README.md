@@ -13,13 +13,9 @@
 - 实现 Dialogue Management: 融合意图识别检索、多轮对话检索和知识库检索
 - [app.js](https://github.com/chatopera/webchat/blob/master/app/app.js) 使用 [Chatopera Node.js SDK](https://www.npmjs.com/package/@chatopera/sdk)，可作为系统集成参考
 
-## TL;DR
+体验地址
 
-使用 Docker 启动实例
-
-```
-docker run -it --rm -p 8668:8668 chatopera/webchat:develop
-```
+[https://tc.chatopera.com](https://tc.chatopera.com)
 
 ![](https://static-public.chatopera.com/assets/images/github/webchat/2.jpg)
 
@@ -28,6 +24,8 @@ docker run -it --rm -p 8668:8668 chatopera/webchat:develop
 ## 启动程序
 
 为了方便用户体验和测试，同时提供一个 Web 应用，该 Web 应用源码也在`./app`内，该示例程序仅用于调试和体验。
+
+### 使用 Node.js 启动程序
 
 启动对话示例程序：
 
@@ -50,17 +48,23 @@ Chatopera Test Client Listening on port 8668
 
 填入`Client ID`和`Client Secret`开始使用。
 
-### 使用 docker 运行
+### 使用 docker 启动程序
 
 \*前提准备：安装 docker 服务。
 
 如果不想安装 Node.js 环境，进一步简化的运行方式是使用 docker，我们提供了 docker 镜像[chatopera/webchat](https://hub.docker.com/r/chatopera/webchat/)，使用如下命令立即启动。
 
 ```
-docker run -it --rm -p 8668:8668 chatopera/webchat:1.0.0
+git clone https://github.com/chatopera/webchat.git
+cd webchat
+cp app/sample.env app/.env # Modify app/.env
+## Option 1
+docker run -it --rm -p 8668:8668 -v ./app/.env:/app/.env chatopera/webchat:1.0.0
+## Option 2: with docker compose
+docker-compose up -d
 ```
 
-其中，前一个`8668`是服务访问端口，可以自定义，访问服务。
+有两种启动方式，选择其中之一即可。其中，前一个`8668`是服务访问端口，可以自定义，访问服务。
 
 ```
 http://YOUR_IP:8668

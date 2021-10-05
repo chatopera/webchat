@@ -1,0 +1,14 @@
+version: '2'
+networks:
+    default:
+
+services:
+    webchat:
+        image: chatopera/webchat:develop
+        volumes:
+            - ./app/.env:/app/.env
+        restart: always
+        ports:
+            - 8668:8668
+        environment:
+            - BROLOG_LEVEL=verbose

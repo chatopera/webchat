@@ -7,6 +7,8 @@
 baseDir=$(cd `dirname "$0"`;pwd)
 appHome=$baseDir/..
 imagename=chatopera/webchat
+PACKAGE_VERSION=1.0.0
+
 # functions
 
 # main 
